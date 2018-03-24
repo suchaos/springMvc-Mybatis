@@ -23,7 +23,7 @@ public class MyBatisTest {
     }
 
     @Test
-    public void TestSelect() throws IOException {
+    public void TestSelect() {
         User user = sqlSession.selectOne("test.findUserById", 1);
         Assert.assertEquals("张三", user.getUsername());
         System.out.println("姓名:" + user.getUsername());
@@ -34,7 +34,7 @@ public class MyBatisTest {
     }
 
     @Test
-    public void TestInsert() throws IOException, ParseException {
+    public void TestInsert() throws ParseException {
         User user = new User();
         user.setUsername("suchao");
         user.setGender("male");
@@ -53,7 +53,7 @@ public class MyBatisTest {
     }
 
     @Test
-    public void TestFuzzySearch() throws IOException {
+    public void TestFuzzySearch() {
         List<User> userList = sqlSession.selectList("test.findUsersByUsername", "丽");
         for (User user : userList) {
             System.out.println("姓名:" + user.getUsername());

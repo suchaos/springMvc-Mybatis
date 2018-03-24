@@ -4,7 +4,30 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="test">
+
     <select id="findUserById" parameterType="int" resultType="com.suchaos.po.User">
         SELECT * FROM USER WHERE id=#{id}
     </select>
+
+    <select id="findUsersByUsername" parameterType="java.lang.String" resultType="com.suchaos.po.User">
+        SELECT * FROM USER WHERE username LIKE '%${value}%'
+    </select>
+
+    <insert id="insertUser" parameterType="com.suchaos.po.User" useGeneratedKeys="true" keyProperty="id">
+        <!--<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>-->
+        INSERT INTO user(username, password, gender, email, province, city, birthday)
+        VALUE (#{username}, #{password}, #{gender}, #{email}, #{province}, #{city}, #{birthday, jdbcType=DATE})
+    </insert>
+
+    <!--删除用户-->
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
+
+    <!--修改用户-->
+    <update id="updateUserName" parameterType="com.suchaos.po.User">
+        UPDATE user SET username = #{username} WHERE id = #{id}
+    </update>
 </mapper>
