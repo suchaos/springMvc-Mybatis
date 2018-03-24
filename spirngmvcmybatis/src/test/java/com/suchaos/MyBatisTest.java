@@ -31,6 +31,11 @@ public class MyBatisTest {
         System.out.println("所在地:" + user.getProvince() + user.getCity());
     }
 
+    @Test
+    public void TestIdeaGit() {
+        System.out.println("使用 idea 提交至 github");
+    }
+
     @After
     public void tearDown() {
         sqlSession.close();
