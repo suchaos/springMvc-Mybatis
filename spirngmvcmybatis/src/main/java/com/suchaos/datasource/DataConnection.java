@@ -10,7 +10,7 @@ import java.io.InputStream;
 
 public class DataConnection {
     //mybatis配置文件
-    private String resource = "SqlMapConfig.xml";
+    private String resource = "mybatis/SqlMapConfig.xml";
     private SqlSessionFactory sqlSessionFactory;
     private SqlSession sqlSession;
 
