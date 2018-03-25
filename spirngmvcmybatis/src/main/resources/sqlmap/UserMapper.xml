@@ -6,11 +6,15 @@
 <mapper namespace="test">
 
     <select id="findUserById" parameterType="int" resultType="com.suchaos.po.User">
-        SELECT * FROM USER WHERE id=#{id}
+        SELECT *
+        FROM USER
+        WHERE id = #{id}
     </select>
 
     <select id="findUsersByUsername" parameterType="java.lang.String" resultType="com.suchaos.po.User">
-        SELECT * FROM USER WHERE username LIKE '%${value}%'
+        SELECT *
+        FROM USER
+        WHERE username LIKE '%${value}%'
     </select>
 
     <insert id="insertUser" parameterType="com.suchaos.po.User" useGeneratedKeys="true" keyProperty="id">
@@ -23,11 +27,52 @@
 
     <!--删除用户-->
     <delete id="deleteUser" parameterType="java.lang.Integer">
-        DELETE FROM user WHERE id = #{id}
+        DELETE FROM user
+        WHERE id = #{id}
     </delete>
 
     <!--修改用户-->
     <update id="updateUserName" parameterType="com.suchaos.po.User">
         UPDATE user SET username = #{username} WHERE id = #{id}
     </update>
+
+    <!--用户信息综合查询-->
+    <select id="findUserList" parameterType="com.suchaos.po.UserQueryInfo" resultType="com.suchaos.po.UserInstance">
+        SELECT *
+        FROM user
+        WHERE user.gender = #{userInstance.gender} AND user.username LIKE '%${userInstance.username}%'
+    </select>
+
+    <select id="findBatchCustoemr" resultType="com.suchaos.po.BatchCustomer">
+        SELECT
+            batch.*,
+            customer.username,
+            customer.acno
+        FROM batch, customer
+        WHERE batch.cus_id = customer.cus_id
+    </select>
+
+    <resultMap id="BatchInforMap" type="com.suchaos.po.BatchItem">
+        <id column="batch_id" property="batchId" />
+        <result column="cus_id" property="cusId" />
+        <result column="number" property="number" />
+        <result column="createtime" property="createtime" javaType="java.util.Date" />
+        <result column="note" property="note" />
+        <association property="customer" javaType="com.suchaos.po.Customer">
+            <id column="cus_id" property="cusId" />
+            <result column="username" property="username" />
+            <result column="acno" property="acno" />
+            <result column="gender" property="gender" />
+            <result column="phone" property="phone" />
+        </association>
+    </resultMap>
+
+    <select id="findBatchCustomerToMap" resultMap="BatchInforMap">
+        SELECT
+            batch.*,
+            customer.username,
+            customer.acno
+        FROM batch, customer
+        WHERE batch.cus_id = customer.cus_id
+    </select>
 </mapper>

@@ -9,17 +9,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class DataConnection {
-    //mybatis配置文件
-    private String resource = "mybatis/SqlMapConfig.xml";
-    private SqlSessionFactory sqlSessionFactory;
-    private SqlSession sqlSession;
 
     public SqlSession getSqlSession() throws IOException {
+        String resource = "mybatis/SqlMapConfig.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         //创建会话工厂，传入mybatis配置文件的信息
-        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        sqlSession = sqlSessionFactory.openSession();
-        return sqlSession;
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        return sqlSessionFactory.openSession();
     }
 
 }

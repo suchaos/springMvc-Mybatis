@@ -7,7 +7,15 @@
     </properties>
     <settings>
         <setting name="logImpl" value="LOG4J"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+
+    <objectFactory type="com.suchaos.mybatis.CartObjectFactory" />
+    
+    <!--<typeHandlers>
+        <typeHandler handler="com.suchaos.mybatis.DateTypeHandler" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </typeHandlers>-->
+    
     <!-- 和spring整合后 environments配置将废除-->
     <environments default="development">
         <environment id="development">
